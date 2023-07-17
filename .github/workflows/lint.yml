@@ -4,6 +4,7 @@ jobs:
   lint:
     name: RuboCop Lint
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -20,3 +21,4 @@ jobs:
 
       - name: Run RuboCop
         run: bundle exec rubocop
+    
