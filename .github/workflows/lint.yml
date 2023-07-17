@@ -1,32 +1,22 @@
-name: CI
-
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
+name: RuboCop Linter
+on: [push, pull_request]
 jobs:
-  build:
+  lint:
+    name: RuboCop Lint
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 2.7.x # Substitua pela versão correta do Ruby utilizada na aplicação
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.x  # Substitua pela versão do Ruby usada no seu projeto
 
-    - name: Install dependencies
-      run: |
-        gem install bundler
-        bundle install --jobs 4 --retry 3
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
 
-    - name: Lint
-      run: |
-        # Adicione aqui os comandos para verificar a qualidade do código (linting), como:
-        # bundle exec rubocop
+      - name: Run RuboCop
+        run: bundle exec rubocop
