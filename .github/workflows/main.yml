@@ -1,0 +1,14 @@
+name: Docker Compose Build
+on: [push]
+
+jobs:
+  build:
+    name: Docker Compose Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker images
+        run: docker-compose build
